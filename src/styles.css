@@ -8,7 +8,8 @@ html, body {
 
 .wrapper {
   /* height: 100%; */
-  background-color: #f4f4f4;
+  /* background-color: #f4f4f4; */
+  background-color: #F0F0F0;
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -100,4 +101,34 @@ html, body {
 display: flex;
 /* height: 50px; */
 margin: 10px;
+}
+
+.refresh {
+  position: fixed;
+  top: 15%;
+  left: 95%;
+  transform: translate(-50%, -50%);
+}
+
+.refresh-btn {
+  background-image: url("/img/refresh.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 70px;
+  height: 70px;
+  display: block;
+  position: relative;
+}
+
+@keyframes spin {
+  from {transform:rotate(0deg);}
+  to {transform:rotate(360deg);}
+}
+
+.refresh-btn:hover {
+  animation: spin 2s linear 0s infinite;
+  width: 80px;
+  height: 80px;
+  transition: width 0.2s, height 0.2s;
+  transform: rotate(360deg);
 }
