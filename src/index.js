@@ -1,6 +1,7 @@
 async function app() {
   const state = {
     cards: [],
+    uiState: [],
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -13,13 +14,29 @@ async function app() {
       alert('Error receiving data from the server');
     });
 
+  function setUiState() {
+    state.uiState = state.cards.map((item) => {
+      const uiElem = { ...item, id: item.timestamp, isVisible: true };
+      return uiElem;
+    });
+  }
+
   const cardList = document.querySelector('.cards-wrapper');
   const createNode = (element) => document.createElement(element);
   const appendElement = (parent, element) => parent.append(element);
 
-  function renderCards(cards) {
-    cards.map((card) => {
-      const { image, category } = card;
+  function changeVisibility(eventId) {
+    state.uiState.forEach((item) => {
+      const { id } = item;
+      if (eventId === id) {
+        item.isVisible = false;
+      }
+    });
+  }
+
+  function renderUi(cards) {
+    cards.filter(({ isVisible }) => isVisible).map((card) => {
+      const { image, category, timestamp } = card;
 
       const listEl = createNode('li');
       const cardInfoEl = createNode('div');
@@ -35,6 +52,13 @@ async function app() {
 
       cardInfoEl.textContent = 'Yep, just some simple content ecapsulated in this card.';
       buttonEl.textContent = 'X';
+      buttonEl.setAttribute('id', timestamp);
+      buttonEl.addEventListener('click', (e) => {
+        const eventId = Number(e.target.id);
+        changeVisibility(eventId);
+        cardList.innerHTML = null;
+        renderUi(state.uiState);
+      });
 
       switch (category) {
         case 'animals':
@@ -75,7 +99,8 @@ async function app() {
     });
   }
 
-  renderCards(state.cards);
+  setUiState();
+  renderUi(state.uiState);
 }
 
 app();
