@@ -103,6 +103,15 @@ async function app() {
 
   setUiState();
   renderUi(state.uiState);
+
+  function resetView() {
+    cardList.innerHTML = null;
+    setUiState();
+    renderUi(state.uiState);
+  }
+
+  const refreshBtnEl = document.querySelector('.refresh-btn');
+  refreshBtnEl.addEventListener('click', resetView);
 }
 
 app();
