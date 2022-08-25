@@ -1,0 +1,95 @@
+html {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html, body {
+  height: 100%;
+}
+
+.wrapper {
+  height: 100%;
+  background-color: #f4f4f4;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 2.5% auto;
+
+}
+
+.header {
+  background-color: lightgreen;
+  min-height: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+  width: 100%; 
+}
+
+.main-content {
+  flex: 1 1 auto;
+}
+
+.footer {
+  background-color: lightpink;
+  height: 7%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  width: 100%; 
+}
+
+.cards-wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 270px);
+  gap: 40px 30px;
+  justify-content: center;
+}
+
+.card {
+  background-color: #c2b8c0;
+  border-radius: 5px;
+  box-shadow: 5px 5px 5px grey;
+  padding: 3px;
+  max-width: 250px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.card-img {
+  background-image: url("https://www.freepik.com/free-photos-vectors/blue-merle-australian-shepherd");
+  border-radius: 5px;
+}
+
+.card-btn {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  border-radius: 5px;
+  font-weight: bold;
+} 
+
+.card-btn:hover {
+  background-color: #d66b6b;
+}
+
+.card-info {
+display: flex;
+/* height: 50px; */
+margin: 10px;
+}
