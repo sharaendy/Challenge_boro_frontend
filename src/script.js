@@ -18,23 +18,23 @@ async function app() {
   const appendElement = (parent, element) => parent.append(element);
 
   function renderCards(cards) {
-    const buttonEl = document.createElement('button');
-    buttonEl.classList.add('card-btn');
-    buttonEl.textContent = 'X';
-
-    const cardInfoEl = document.createElement('div');
-    cardInfoEl.classList.add('card-info');
-    cardInfoEl.textContent = 'Yep, just some simple content ecapsulated in this card.';
-
     cards.map((card) => {
-      const { category } = card;
+      const { image, category } = card;
+
       const listEl = createNode('li');
+      const cardInfoEl = createNode('div');
+      const buttonEl = createNode('button');
       const imageEl = createNode('img');
-      const imagePath = `http://contest.elecard.ru/frontend_data/${card.image}`;
+      const imagePath = `http://contest.elecard.ru/frontend_data/${image}`;
 
       listEl.classList.add('card');
-      imageEl.classList.add('img');
+      imageEl.classList.add('card-img');
       imageEl.src = imagePath;
+      cardInfoEl.classList.add('card-info');
+      buttonEl.classList.add('card-btn');
+
+      cardInfoEl.textContent = 'Yep, just some simple content ecapsulated in this card.';
+      buttonEl.textContent = 'X';
 
       switch (category) {
         case 'animals':
@@ -66,8 +66,8 @@ async function app() {
           break;
       }
 
-      appendElement(listEl, cardInfoEl);
       appendElement(listEl, imageEl);
+      appendElement(listEl, cardInfoEl);
       appendElement(listEl, buttonEl);
       appendElement(cardList, listEl);
 
