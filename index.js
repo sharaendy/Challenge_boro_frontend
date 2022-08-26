@@ -7,7 +7,10 @@ async function app() {
       thumbnails: [],
       tree: [],
     },
-    filter: null,
+    view: {
+      currentPage: 1,
+      rowsOnPage: 100,
+    },
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -31,10 +34,6 @@ async function app() {
     });
   }
 
-  const cardList = document.querySelector('.cards-wrapper');
-  const createNode = (element) => document.createElement(element);
-  const appendElement = (parent, element) => parent.append(element);
-
   function changeVisibility(eventId) {
     state.uiState.thumbnails.forEach((item) => {
       const uiItem = item;
@@ -44,8 +43,17 @@ async function app() {
     });
   }
 
-  function renderThumbnailsUi(cards) {
-    cards
+  const cardList = document.querySelector('.cards-wrapper');
+  const createNode = (element) => document.createElement(element);
+  const appendElement = (parent, element) => parent.append(element);
+
+  function renderThumbnailsUi(cards, rowsOnPage, currentPage) {
+    const currentPageMod = currentPage - 1;
+    const startSegment = rowsOnPage * currentPageMod;
+    const endSegment = startSegment + rowsOnPage;
+    const paginatedData = cards.slice(startSegment, endSegment);
+
+    paginatedData
       .filter(({ isVisible }) => isVisible)
       .map((card) => {
         const { image, category, id } = card;
@@ -65,11 +73,9 @@ async function app() {
         buttonEl.textContent = 'X';
         buttonEl.setAttribute('id', id);
         listEl.addEventListener('click', (e) => {
-          // e.currentTarget.style.transition = 'opacity 0.7s';
-          // e.currentTarget.style.opacity = '0';
           changeVisibility(e.target.id);
           cardList.innerHTML = null;
-          renderThumbnailsUi(state.uiState.thumbnails);
+          renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
         });
 
         switch (category) {
@@ -114,13 +120,14 @@ async function app() {
 
   setUiState();
   uploadLocalStorage();
-  renderThumbnailsUi(state.uiState.thumbnails);
+  renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+  displayPagination();
 
   function resetView() {
     localStorage.removeItem('lastUi');
     cardList.innerHTML = null;
     setUiState();
-    renderThumbnailsUi(state.uiState.thumbnails);
+    renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
   }
 
   const refreshBtnEl = document.querySelector('.refresh-btn');
@@ -140,7 +147,7 @@ async function app() {
       sortByField(sortType),
     );
     cardList.innerHTML = null;
-    renderThumbnailsUi(state.uiState.thumbnails);
+    renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
   }));
 
   // TODO Локальное хранилище
@@ -149,5 +156,45 @@ async function app() {
     const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
     state.uiState.thumbnails = lastUiProp;
   }
+
+  // TODO Пагинатор
+  function displayPaginationBtn(pageNumber) {
+    const paginatorPage = document.createElement('li');
+    paginatorPage.classList.add('pagination__item');
+    paginatorPage.textContent = pageNumber;
+
+    if (pageNumber === state.view.currentPage) {
+      paginatorPage.classList.add('pagination__item--active');
+    }
+
+    paginatorPage.addEventListener('click', () => {
+      state.view.currentPage = pageNumber;
+      cardList.innerHTML = null;
+      renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+      const currentActivePage = document.querySelector('li.pagination__item--active');
+      currentActivePage.classList.remove('pagination__item--active');
+      paginatorPage.classList.add('pagination__item--active');
+    });
+
+    return paginatorPage;
+  }
+
+  function displayPagination() {
+    const cards = state.uiState.thumbnails;
+    const rows = state.view.rowsOnPage;
+    const paginationEl = document.querySelector('.pagination');
+
+    const pagesCount = Math.ceil(cards.length / rows);
+    const paginatorList = document.createElement('ul');
+    paginatorList.classList.add('pagination__list');
+
+    for (let i = 0; i < pagesCount; i += 1) {
+      const pageEl = displayPaginationBtn(i + 1);
+      paginatorList.append(pageEl);
+    }
+    paginationEl.append(paginatorList);
+  }
+
+
 }
 app();
