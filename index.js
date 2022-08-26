@@ -109,12 +109,15 @@ async function app() {
 
         return null;
       });
+    localStorage.setItem('lastUi', JSON.stringify(state.uiState.thumbnails));
   }
 
   setUiState();
+  uploadLocalStorage();
   renderThumbnailsUi(state.uiState.thumbnails);
 
   function resetView() {
+    localStorage.removeItem('lastUi');
     cardList.innerHTML = null;
     setUiState();
     renderThumbnailsUi(state.uiState.thumbnails);
@@ -139,6 +142,10 @@ async function app() {
     cardList.innerHTML = null;
     renderThumbnailsUi(state.uiState.thumbnails);
   }));
-}
 
+  function uploadLocalStorage() {
+    const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
+    state.uiState.thumbnails = lastUiProp;
+  }
+}
 app();
