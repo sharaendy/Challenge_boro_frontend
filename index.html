@@ -23,6 +23,7 @@
                   class="filter__item"
                   type="radio"
                   name="filter"
+                  data-type="category"
                   value="category"
                 />
                 category
@@ -34,6 +35,7 @@
                   class="filter__item"
                   type="radio"
                   name="filter"
+                  data-type="timestamp"
                   value="timestamp"
                 />
                 date
@@ -45,11 +47,12 @@
                   class="filter__item"
                   type="radio"
                   name="filter"
+                  data-type="filesize"
                   value="filesize"
                 />
                 size
               </label>
-              <br />
+
             </div>
           </form>
         </div>
@@ -57,7 +60,7 @@
         <div class="switcher">
           <div class="switcher__title">Switch view</div>
           <div class="switcher__group">
-            <div class="switcher__item">
+            <div class="switcher__item active">
               <label type="radio"
                 >cards
                 <input
@@ -93,7 +96,7 @@
 
       <main class="main-content">
         <div class="container">
-          <!-- <ul class="cards-wrapper"></ul> -->
+          <ul class="cards-wrapper"></ul>
 
           <!-- <ul class="treeline">
             <li>Categories

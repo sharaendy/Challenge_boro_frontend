@@ -7,6 +7,7 @@ async function app() {
       thumbnails: [],
       tree: [],
     },
+    filter: null,
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -121,6 +122,23 @@ async function app() {
 
   const refreshBtnEl = document.querySelector('.refresh-btn');
   refreshBtnEl.addEventListener('click', resetView);
+
+  // TODO сортировка
+
+  function sortByField(field) {
+    return (a, b) => (a[field] > b[field] ? 1 : -1);
+  }
+
+  const sortElems = document.querySelectorAll('input[data-type]');
+  sortElems.forEach((elem) => elem.addEventListener('change', (event) => {
+    const sortType = event.target.value;
+    state.filter = sortType;
+    state.uiState.thumbnails = state.uiState.thumbnails.sort(
+      sortByField(sortType),
+    );
+    cardList.innerHTML = null;
+    renderThumbnailsUi(state.uiState.thumbnails);
+  }));
 }
 
 app();

@@ -28,7 +28,7 @@ label {
 
 .header {
   background-color: lightblue;
-  height: 70px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,6 +37,8 @@ label {
   top: 0px;
   z-index: 10;
   width: 100%; 
+  border-bottom: 1px solid grey;
+  box-shadow: 2px 5px 10px grey;
 }
 
 .main-content {
@@ -125,7 +127,6 @@ margin: 10px;
 }
 
 label input[name=display] {
-  /* opacity: 0; */
   display: none;
 }
 
@@ -191,7 +192,7 @@ background-color: greenyellow;
   height: 70px;
   display: block;
   position: relative;
-  transition: width 0.2s, height 0.2s;
+  /* transition: width 0.2s, height 0.2s; */
 }
 
 @keyframes spin {
