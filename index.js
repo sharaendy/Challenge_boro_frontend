@@ -3,7 +3,10 @@ import uniqueId from 'lodash/uniqueId.js';
 async function app() {
   const state = {
     cards: [],
-    uiState: [],
+    uiState: {
+      thumbnails: [],
+      tree: [],
+    },
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -17,9 +20,13 @@ async function app() {
     });
 
   function setUiState() {
-    state.uiState = state.cards.map((item) => {
-      const uiElem = { ...item, id: uniqueId(), isVisible: true };
-      return uiElem;
+    state.uiState.thumbnails = state.cards.map((item) => {
+      const uiElemThumbnail = { ...item, id: uniqueId(), isVisible: true };
+      return uiElemThumbnail;
+    });
+    state.uiState.tree = state.cards.map((item) => {
+      const uiElemTree = { ...item, id: uniqueId() };
+      return uiElemTree;
     });
   }
 
@@ -28,7 +35,7 @@ async function app() {
   const appendElement = (parent, element) => parent.append(element);
 
   function changeVisibility(eventId) {
-    state.uiState.forEach((item) => {
+    state.uiState.thumbnails.forEach((item) => {
       const uiItem = item;
       if (eventId === item.id) {
         uiItem.isVisible = false;
@@ -36,7 +43,7 @@ async function app() {
     });
   }
 
-  function renderUi(cards) {
+  function renderThumbnailsUi(cards) {
     cards
       .filter(({ isVisible }) => isVisible)
       .map((card) => {
@@ -61,7 +68,7 @@ async function app() {
           // e.currentTarget.style.opacity = '0';
           changeVisibility(e.target.id);
           cardList.innerHTML = null;
-          renderUi(state.uiState);
+          renderThumbnailsUi(state.uiState.thumbnails);
         });
 
         switch (category) {
@@ -104,12 +111,12 @@ async function app() {
   }
 
   setUiState();
-  renderUi(state.uiState);
+  renderThumbnailsUi(state.uiState.thumbnails);
 
   function resetView() {
     cardList.innerHTML = null;
     setUiState();
-    renderUi(state.uiState);
+    renderThumbnailsUi(state.uiState.thumbnails);
   }
 
   const refreshBtnEl = document.querySelector('.refresh-btn');

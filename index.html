@@ -11,33 +11,92 @@
   <body>
     <div class="wrapper">
       <header class="header">
-        <div class="container">
-          <div class="switcher">
-            <div class="switcher-title">Switch view
-              <div class="switcher-group">
-                <label type="radio">thumbnails
-                  <input type="radio" name="display" value="thumbnails" id="switch-thumbs" />
-                  
-                </label>
-                <label type="radio">
-                  <input type="radio" name="display" value="tree" id="switch-tree" /> tree
-                </label>
-              </div>
+        <!-- <div class="container"> -->
+        <!-- <div class="control"> -->
+
+        <div class="filter">
+          <form class="filter__panel">
+            <h2 class="filter__title">filter</h2>
+            <div class="filter__list">
+              <label>
+                <input
+                  class="filter__item"
+                  type="radio"
+                  name="filter"
+                  value="category"
+                />
+                category
+              </label>
+              <br />
+
+              <label>
+                <input
+                  class="filter__item"
+                  type="radio"
+                  name="filter"
+                  value="timestamp"
+                />
+                date
+              </label>
+              <br />
+
+              <label>
+                <input
+                  class="filter__item"
+                  type="radio"
+                  name="filter"
+                  value="filesize"
+                />
+                size
+              </label>
+              <br />
+            </div>
+          </form>
+        </div>
+
+        <div class="switcher">
+          <div class="switcher__title">Switch view</div>
+          <div class="switcher__group">
+            <div class="switcher__item">
+              <label type="radio"
+                >cards
+                <input
+                  type="radio"
+                  name="display"
+                  value="thumbnails"
+                  id="switch-thumbs"
+                  checked
+                />
+              </label>
+            </div>
+            <div class="switcher__item mg__left">
+              <label type="radio">
+                <input
+                  type="radio"
+                  name="display"
+                  value="tree"
+                  id="switch-tree"
+                />
+                tree
+              </label>
             </div>
           </div>
         </div>
-      </header>
 
-      <main class="main-content">
         <div class="refresh">
           <button class="refresh-btn"></button>
         </div>
 
+        <!-- </div> -->
+        <!-- </div> -->
+      </header>
+
+      <main class="main-content">
         <div class="container">
           <!-- <ul class="cards-wrapper"></ul> -->
 
-          <ul class="treeline">
-            <li>Главное меню
+          <!-- <ul class="treeline">
+            <li>Categories
               <ul>
                <li>
                 <div class="drop">+</div>База знаний
@@ -51,8 +110,7 @@
             <li>Контакты</li>
               </ul>
             </li>
-         </ul>
-
+         </ul> -->
         </div>
       </main>
 

@@ -1,9 +1,13 @@
 html {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
 html, body {
   height: 100%;
+}
+
+label {
+  cursor: pointer;
 }
 
 .wrapper {
@@ -23,12 +27,12 @@ html, body {
 }
 
 .header {
-  background-color: lightgreen;
-  min-height: 50px;
-  max-height: 70px;
+  background-color: lightblue;
+  height: 70px;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  flex: 1 2 1;
   position: sticky;
   top: 0px;
   z-index: 10;
@@ -71,7 +75,6 @@ html, body {
   display: flex;
   flex-direction: column;
   position: relative;
-  /* margin-bottom: 25px; */
 }
 
 .card-img {
@@ -103,11 +106,81 @@ display: flex;
 margin: 10px;
 }
 
+/* .control {
+   display: flex; 
+  flex: 1 2 1;
+  justify-content: space-between;
+  align-items: center; 
+  top: 3.5%; 
+   left: 82%; 
+   transform: translate(-50%, -50%); 
+   min-width: 200px;
+} */
+
+.switcher__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+label input[name=display] {
+  /* opacity: 0; */
+  display: none;
+}
+
+
+.switcher__group {
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.switcher__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80px;
+  height: 30px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.active {
+background-color: greenyellow;
+}
+
+.mg__left {
+  margin-left: 20px;
+}
+
+.filter {
+  border: 2px solid black;
+  border-radius: 20px;
+  min-width: 200px;
+  height: 70px;  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.filter__title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter__item {
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
 .refresh {
-  position: fixed;
-  top: 15%;
-  left: 95%;
-  transform: translate(-50%, -50%);
+  min-width: 70px;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .refresh-btn {
@@ -118,6 +191,7 @@ margin: 10px;
   height: 70px;
   display: block;
   position: relative;
+  transition: width 0.2s, height 0.2s;
 }
 
 @keyframes spin {
@@ -127,46 +201,18 @@ margin: 10px;
 
 .refresh-btn:hover {
   animation: spin 2s linear 0s infinite;
-  width: 80px;
-  height: 80px;
-  transition: width 0.2s, height 0.2s;
+  /* width: 95px; */
+  /* height: 95px; */
+  /* transition: width 0.2s, height 0.2s; */
   transform: rotate(360deg);
 }
 
-label {
-  cursor: pointer;
+.filter__panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-
-
-/* _____ */
-.treeline, .treeline ul, .treeline li {
-  margin: 0; padding: 0; line-height: 1.2; list-style: none;
+.filter__title {  
+  margin-right: 20px;
 }
-.treeline ul {margin: 0 0 0 15px; /* отступ вертикальной линии */}
-.treeline > li:not(:only-child), .treeline li li {
-  position: relative;
-  padding: 3px 0 0 20px; /* отступ текста */
-}
-/* Стиль вертикальной линии */
-.treeline li:not(:last-child) { border-left: 1px solid #ccc;}
-/* Стили горизонтальной линии*/  
-.treeline li li:before, .treeline > li:not(:only-child):before {
-  content: ""; position: absolute; top: 0; left: 0;
-  width: 1.1em; height: .7em; border-bottom:1px solid #ccc;
-}
-/* Вертикальная линия последнего пункта в списка */  
-.treeline li:last-child:before {
-  width: calc(1.1em - 1px); border-left: 1px solid #ccc;
-}
-
-.treeline .drop {
-  position: absolute; left: -6px; top: 5px; width: 11px;
-  height: 11px; line-height: 1em; text-align: center;
-  background: #9F9F9F; color: #fff; /* Фон и цвет кнопки, раскрывающей список */
-  font-size: 78%; /* Размер +/- */
-  cursor: pointer; -webkit-user-select: none; -moz-user-select: none;
-}
-.treeline li:last-child > .drop {margin-left: 1px;}
-.treeline .drop + ul {display: none;}
-.treeline .dropM + ul {display: block;}
