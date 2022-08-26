@@ -7,13 +7,24 @@
     <title>Challange Sharaevskiy</title>
     <link rel="stylesheet" href="./src/styles/normalize.css" />
     <link rel="stylesheet" href="./src/styles/styles.css" />
+
+    <script defer src="./node_modules/jquery/dist/jquery.js" type="module"></script>
+    <script>
+      //preloader
+      $(window).on('load', function () {
+        $('body').addClass('loaded_hiding');
+        window.setTimeout(function () {
+          $('body').addClass('loaded');
+          $('body').removeClass('loaded_hiding');
+        }, 500);
+      });
+    </script>
+    <script defer src="./index.js" type="module"></script>
   </head>
+
   <body>
     <div class="wrapper">
       <header class="header">
-        <!-- <div class="container"> -->
-        <!-- <div class="control"> -->
-
         <div class="filter">
           <form class="filter__panel">
             <h2 class="filter__title">filter</h2>
@@ -52,7 +63,6 @@
                 />
                 size
               </label>
-
             </div>
           </form>
         </div>
@@ -90,14 +100,12 @@
           <button class="refresh-btn"></button>
           <div class="dropdown">
             <div class="dropdown__text">how to clear settings?</div>
-            <div class="dropdown__menu">Just click 
-              the button above <span style='font-size:20px;'>&#128521;</span>
+            <div class="dropdown__menu">
+              Just click the button above
+              <span style="font-size: 20px">&#128521;</span>
             </div>
           </div>
         </div>
-
-        <!-- </div> -->
-        <!-- </div> -->
       </header>
 
       <main class="main-content">
@@ -123,13 +131,35 @@
         </div>
       </main>
 
-      <footer class="footer"><div class="container">
-        <div class="pagination"></div>
-      </div></footer>
+      <footer class="footer">
+        <div class="container">
+          <div class="pagination"></div>
+        </div>
+      </footer>
     </div>
 
-    <script type="module" src="./index.js"></script>
-    <!-- <script type="module" src="./node_modules/jquery/dist/jquery.js"></script> -->
-    <script type="module" src="./src/modules/changeView.js"></script>
+    <div class="preloader">
+      <svg
+        class="preloader__image"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 512 512"
+      >
+        <path
+          fill="currentColor"
+          d="M304 48c0 26.51-21.49 48-48 48s-48-21.49-48-48 21.49-48 48-48 48 21.49 48 48zm-48 368c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zm208-208c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.49-48-48-48zM96 256c0-26.51-21.49-48-48-48S0 229.49 0 256s21.49 48 48 48 48-21.49 48-48zm12.922 99.078c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.491-48-48-48zm294.156 0c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48c0-26.509-21.49-48-48-48zM108.922 60.922c-26.51 0-48 21.49-48 48s21.49 48 48 48 48-21.49 48-48-21.491-48-48-48z"
+        ></path>
+      </svg>
+    </div>
+
+    <script>
+      window.onload = function () {
+        document.body.classList.add('loaded_hiding');
+        window.setTimeout(function () {
+          document.body.classList.add('loaded');
+          document.body.classList.remove('loaded_hiding');
+        }, 500);
+      };
+    </script>
   </body>
 </html>

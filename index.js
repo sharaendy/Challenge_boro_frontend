@@ -128,6 +128,7 @@ async function app() {
     cardList.innerHTML = null;
     setUiState();
     renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+    document.location.reload();
   }
 
   const refreshBtnEl = document.querySelector('.refresh-btn');
