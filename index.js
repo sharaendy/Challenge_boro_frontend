@@ -11,6 +11,7 @@ async function app() {
       currentPage: 1,
       rowsOnPage: 100,
     },
+    filter: null,
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -145,14 +146,13 @@ async function app() {
     const sortType = event.target.value;
     state.filter = sortType;
     state.uiState.thumbnails = state.uiState.thumbnails.sort(
-      sortByField(sortType),
+      sortByField(state.filter),
     );
     cardList.innerHTML = null;
     renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
   }));
 
   // TODO Локальное хранилище
-
   function uploadLocalStorage() {
     const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
     state.uiState.thumbnails = lastUiProp;
@@ -195,7 +195,5 @@ async function app() {
     }
     paginationEl.append(paginatorList);
   }
-
-
 }
 app();
