@@ -1,3 +1,5 @@
+import uniqueId from 'lodash/uniqueId.js';
+
 async function app() {
   const state = {
     cards: [],
@@ -16,7 +18,7 @@ async function app() {
 
   function setUiState() {
     state.uiState = state.cards.map((item) => {
-      const uiElem = { ...item, id: item.timestamp, isVisible: true };
+      const uiElem = { ...item, id: uniqueId(), isVisible: true };
       return uiElem;
     });
   }
@@ -38,7 +40,7 @@ async function app() {
     cards
       .filter(({ isVisible }) => isVisible)
       .map((card) => {
-        const { image, category, timestamp } = card;
+        const { image, category, id } = card;
 
         const listEl = createNode('li');
         const cardInfoEl = createNode('div');
@@ -51,13 +53,13 @@ async function app() {
         imageEl.src = imagePath;
         cardInfoEl.classList.add('card-info');
         buttonEl.classList.add('card-btn');
-
         cardInfoEl.textContent = 'Yep, just some simple content ecapsulated in this card.';
         buttonEl.textContent = 'X';
-        buttonEl.setAttribute('id', timestamp);
-        buttonEl.addEventListener('click', (e) => {
-          const eventId = Number(e.target.id);
-          changeVisibility(eventId);
+        buttonEl.setAttribute('id', id);
+        listEl.addEventListener('click', (e) => {
+          // e.currentTarget.style.transition = 'opacity 0.7s';
+          // e.currentTarget.style.opacity = '0';
+          changeVisibility(e.target.id);
           cardList.innerHTML = null;
           renderUi(state.uiState);
         });

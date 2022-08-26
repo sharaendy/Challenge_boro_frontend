@@ -10,7 +10,23 @@
   </head>
   <body>
     <div class="wrapper">
-      <header class="header"><div class="container"></div></header>
+      <header class="header">
+        <div class="container">
+          <div class="switcher">
+            <div class="switcher-title">Switch view
+              <div class="switcher-group">
+                <label type="radio">thumbnails
+                  <input type="radio" name="display" value="thumbnails" id="switch-thumbs" />
+                  
+                </label>
+                <label type="radio">
+                  <input type="radio" name="display" value="tree" id="switch-tree" /> tree
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
 
       <main class="main-content">
         <div class="refresh">
@@ -18,7 +34,25 @@
         </div>
 
         <div class="container">
-          <ul class="cards-wrapper"></ul>
+          <!-- <ul class="cards-wrapper"></ul> -->
+
+          <ul class="treeline">
+            <li>Главное меню
+              <ul>
+               <li>
+                <div class="drop">+</div>База знаний
+              <ul>
+                <li>Компоненты</li>
+                <li>Плагины</li>
+                <li>Модули</li>
+              </ul>
+            </li>
+            <li>Отзывы</li>
+            <li>Контакты</li>
+              </ul>
+            </li>
+         </ul>
+
         </div>
       </main>
 
@@ -26,5 +60,8 @@
     </div>
 
     <script type="module" src="./index.js"></script>
+    <!-- <script type="module" src="./node_modules/jquery/dist/jquery.js"></script> -->
+    <script type="module" src="./src/modules/changeView.js"></script>
+    <!-- <цscript type="module" src="./node_modules/lodash/lodash.js"></ццццscript> -->
   </body>
 </html>
