@@ -143,6 +143,8 @@ async function app() {
     renderThumbnailsUi(state.uiState.thumbnails);
   }));
 
+  // TODO Локальное хранилище
+
   function uploadLocalStorage() {
     const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
     state.uiState.thumbnails = lastUiProp;

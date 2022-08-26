@@ -12,8 +12,8 @@ label {
 
 .wrapper {
   /* height: 100%; */
-  /* background-color: #f4f4f4; */
-  background-color: #F0F0F0;
+  background-color: #f4f4f4;
+  /* background-color: #e5e5e5; */
   min-height: 100%;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,8 @@ label {
 }
 
 .header {
-  background-color: lightblue;
+  background: rgb(238,174,202);
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   height: 80px;
   display: flex;
   align-items: center;
@@ -46,7 +47,8 @@ label {
 }
 
 .footer {
-  background-color: lightpink;
+  background: rgb(238,174,202);
+  background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
   min-height: 50px;
   max-height: 70px;
   display: flex;
@@ -67,10 +69,10 @@ label {
 }
 
 .card {
-  background-color: #c2b8c0;
+  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);;
   border-radius: 5px;
-  box-shadow: 5px 5px 5px grey;
-  padding: 3px;
+  box-shadow: 5px 5px 10px #b3b3b3;
+  /* padding: 3px; */
   width: 250px;
   min-height: 184px;
   max-height: 240px;
@@ -82,7 +84,7 @@ label {
 .card-img {
   object-fit: cover;
   height: 177px;
-  width: 244px;
+  /* width: 244px; */
   background-image: url("https://www.freepik.com/free-photos-vectors/blue-merle-australian-shepherd");
   border-radius: 5px;
 }
@@ -124,6 +126,11 @@ margin: 10px;
   font-weight: bold;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.dropdown__text {
+  font-weight: bold;
+  color: darkslategray;
 }
 
 label input[name=display] {
@@ -182,16 +189,21 @@ background-color: greenyellow;
   min-width: 70px;
   margin-left: 5%;
   margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .refresh-btn {
-  background-image: url("/img/refresh.png");
+  background-image: url("/img/refresh.svg");
   background-repeat: no-repeat;
   background-size: cover;
-  width: 70px;
-  height: 70px;
+  width: 60px;
+  height: 60px;
   display: block;
   position: relative;
+  border-radius: 50%;
   /* transition: width 0.2s, height 0.2s; */
 }
 
@@ -216,4 +228,57 @@ background-color: greenyellow;
 
 .filter__title {  
   margin-right: 20px;
+}
+
+
+
+
+
+.dropdown {
+  position: relative;
+  margin-top: 2px;
+}
+
+.dropdown:hover .dropdown__menu {
+  display: block;
+}
+
+.dropdown__menu::after {
+ content: "";
+ position: absolute;
+ display: block;
+ width: 0px;
+ height: 0px;
+ left: 95px;
+ top: -28px;
+ border: 15px solid transparent;
+ border-bottom-color: #b96cbe;
+}
+
+.dropdown__menu::before {
+ content: "";
+ position: absolute;
+ display: block;
+ height: 30px;
+ right: 0px;
+ left: 0px;
+ top: -30px;
+}
+
+.dropdown__menu {
+  position: absolute;
+  white-space: wrap;
+  text-align: center;
+  line-height: 1.2;
+  right: 0px;
+  opacity: 0.9;
+  width: 160px;
+  border-radius: 5px;
+  padding: 19px;
+  top: 100%;
+  display: none;
+  margin-top: 15px;
+  color: #111;
+  font-weight: bold;
+  background: #b96cbe;
 }
