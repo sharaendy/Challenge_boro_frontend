@@ -3,7 +3,10 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["airbnb-base"],
+  "plugins": [
+    "jquery"
+  ],
+  "extends": ["airbnb-base", "plugin:jquery/deprecated"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"

@@ -5,12 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Challange Sharaevskiy</title>
+
     <link rel="stylesheet" href="./src/styles/normalize.css" />
     <link rel="stylesheet" href="./src/styles/styles.css" />
-
+    
     <script defer src="./node_modules/jquery/dist/jquery.js" type="module"></script>
-    <script>
+    <script type="module">
       //preloader
+      import $ from 'jquery'
       $(window).on('load', function () {
         $('body').addClass('loaded_hiding');
         window.setTimeout(function () {
@@ -18,8 +20,9 @@
           $('body').removeClass('loaded_hiding');
         }, 500);
       });
-    </script>
+    </script>    
     <script defer src="./index.js" type="module"></script>
+
   </head>
 
   <body>
@@ -110,24 +113,7 @@
 
       <main class="main-content">
         <div class="container">
-          <ul class="cards-wrapper"></ul>
-
-          <!-- <ul class="treeline">
-            <li>Categories
-              <ul>
-               <li>
-                <div class="drop">+</div>База знаний
-              <ul>
-                <li>Компоненты</li>
-                <li>Плагины</li>
-                <li>Модули</li>
-              </ul>
-            </li>
-            <li>Отзывы</li>
-            <li>Контакты</li>
-              </ul>
-            </li>
-         </ul> -->
+          <ul class="cards-wrapper"></ul>          
         </div>
       </main>
 
