@@ -369,11 +369,10 @@ label input[name='display'] {
 
 .tree__title {
   margin-left: 50px;
-  margin-top: 10px;
 }
 
 .tree__list {
-  margin-left: 50px;
+  margin-left: 30px;
   margin-top: 10px;
 }
 
@@ -391,8 +390,6 @@ label input[name='display'] {
 
 .tree__coll {
   max-width: 1000px;
-  /* display: flex; */
-  /* flex-wrap: wrap; */
   margin-top: 5px;
   margin-left: 50px;
 }
@@ -403,21 +400,49 @@ label input[name='display'] {
 
 .treeline span {
   cursor: pointer;
+  font-size: 18px;
 }
 
-.treeline span {
-  font-size: 14px;
+.treeline li {
+  position: relative;
+  padding-top: 10px;
+}
+
+.handleLi::before {
+  content: '';
+  position: absolute;
+  border-left: 2px solid grey;
+  height: 100%;
+  top: -10px;
+  left: -20px;
+}
+
+.handleLi::after {
+  content: '';
+  border-bottom: 2px solid grey;
+  position: absolute;
+  left: -19px;
+  top: 19px;
+  width: 19px;
+}
+
+.handleLi:last-child::before {
+  height: 31px;
 }
 
 .hide::before {
   content: '';
   width: 20px;
-  display: inline-block;
   height: 20px;
+  display: inline-block;
   margin-right: 5px;
   background-image: url('/img/plus.svg');
-  vertical-align: middle;
+  border-radius: 50%;
+  vertical-align: text-bottom;;
+  background-position: center;
+  background-size: cover;
   background-repeat: no-repeat;
+  transition: background-image, 0.2s;
 
 }
 
@@ -428,6 +453,7 @@ label input[name='display'] {
   margin-right: 5px;
   display: inline-block;
   background-image: url('/img/minus.svg');
-  vertical-align: middle;
+  vertical-align: text-bottom;;
   background-repeat: no-repeat;
+  transition: background-image, 0.2s;
 }
