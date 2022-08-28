@@ -2,7 +2,6 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
-// import cats from '../assets/data.js';
 
 async function app() {
   const state = {
@@ -22,11 +21,7 @@ async function app() {
     filter: null,
   };
 
-  // fetch response
-
-  await fetch('http://contest.elecard.ru/frontend_data/catalog.json', {
-    mode: 'no-cors',
-  })
+  await fetch('https://contest.elecard.ru/frontend_data/catalog.json')
     .then((res) => res.json())
     .then((json) => {
       state.cards = json;
@@ -35,8 +30,6 @@ async function app() {
       console.warn(error);
       alert('Error receiving data from the server');
     });
-
-  // state.cards = cats;
 
   // TODO Инициализация
   const cardList = document.querySelector('.cards-wrapper');
@@ -89,7 +82,7 @@ async function app() {
         const cardInfoEl = createNode('div');
         const buttonEl = createNode('button');
         const imageEl = createNode('img');
-        const imagePath = `http://contest.elecard.ru/frontend_data/${image}`;
+        const imagePath = `https://contest.elecard.ru/frontend_data/${image}`;
 
         listEl.classList.add('card');
         imageEl.classList.add('card-img');
@@ -223,7 +216,7 @@ async function app() {
         .forEach(({ image }) => {
           const cardLi = document.createElement('li');
           cardLi.classList.add('card__item');
-          cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
+          cardLi.style.backgroundImage = `url(https://contest.elecard.ru/frontend_data/${image})`;
           cardLi.addEventListener('click', (e) => {
             if (!e.target.classList.contains('maximized')) {
               e.target.classList.add('maximized');

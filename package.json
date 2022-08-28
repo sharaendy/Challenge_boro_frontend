@@ -4,7 +4,7 @@
   "description": "Challenge Boro 2021.02 frontend",
   "type": "module",
   "scripts": {
-    "dev": "parcel index.html",
+    "dev": "parcel src/index.html",
     "build": "parcel build src/index.html --no-minify"
   },
   "repository": {
