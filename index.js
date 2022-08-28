@@ -1,4 +1,7 @@
 import uniqueId from 'lodash/uniqueId.js';
+import createNode from './src/modules/createNode.js';
+import sortByField from './src/modules/sortByField';
+import appendElement from './src/modules/appendElement.js';
 
 async function app() {
   const state = {
@@ -7,13 +10,15 @@ async function app() {
 
     uiState: {
       thumbnails: [],
-      tree: [],
+      currentView: 'cards',
     },
 
     view: {
       currentPage: 1,
       rowsOnPage: 100,
     },
+
+    filter: null,
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -25,6 +30,19 @@ async function app() {
       console.warn(error);
       alert('Error receiving data from the server');
     });
+
+  // TODO Инициализация
+  const cardList = document.querySelector('.cards-wrapper');
+  const ulContainer = document.querySelector('.treeline');
+  // const containerEl = document.querySelector('.container');
+  const switcherEl = document.querySelector('#switcher');
+  const sortElems = document.querySelectorAll('input[data-type]');
+  const paginationEl = document.querySelector('.pagination');
+
+  function uploadLocalStorage() {
+    const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
+    state.uiState.thumbnails = lastUiProp;
+  }
 
   function setUiState() {
     state.uiState.thumbnails = state.cards.map((item) => {
@@ -49,10 +67,6 @@ async function app() {
       }
     });
   }
-
-  const cardList = document.querySelector('.cards-wrapper');
-  const createNode = (element) => document.createElement(element);
-  const appendElement = (parent, element) => parent.append(element);
 
   function renderThumbnailsUi(cards, rowsOnPage, currentPage) {
     const currentPageMod = currentPage - 1;
@@ -82,7 +96,11 @@ async function app() {
         listEl.addEventListener('click', (e) => {
           changeVisibility(e.target.id);
           cardList.innerHTML = null;
-          renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+          renderThumbnailsUi(
+            state.uiState.thumbnails,
+            state.view.rowsOnPage,
+            state.view.currentPage,
+          );
         });
 
         switch (category) {
@@ -125,48 +143,24 @@ async function app() {
     localStorage.setItem('lastUi', JSON.stringify(state.uiState.thumbnails));
   }
 
-  setUiState();
-  uploadLocalStorage();
-  renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
-  treeGenerator(state.categories);
-  treeModernisation();
-  displayPagination();
-
   function resetView() {
     localStorage.removeItem('lastUi');
     cardList.innerHTML = null;
     setUiState();
-    renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+    renderThumbnailsUi(
+      state.uiState.thumbnails,
+      state.view.rowsOnPage,
+      state.view.currentPage,
+    );
     document.location.reload();
   }
 
-  const refreshBtnEl = document.querySelector('.refresh-btn');
-  refreshBtnEl.addEventListener('click', resetView);
-
-  // TODO сортировка
-
-  function sortByField(field) {
-    return (a, b) => (a[field] > b[field] ? 1 : -1);
+  function setRefreshBtn() {
+    const refreshBtnEl = document.querySelector('.refresh-btn');
+    refreshBtnEl.addEventListener('click', resetView);
   }
 
-  const sortElems = document.querySelectorAll('input[data-type]');
-  sortElems.forEach((elem) => elem.addEventListener('change', (event) => {
-    const sortType = event.target.value;
-    state.filter = sortType;
-    state.uiState.thumbnails = state.uiState.thumbnails.sort(
-      sortByField(state.filter),
-    );
-    cardList.innerHTML = null;
-    renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
-  }));
-
-  // TODO Локальное хранилище
-  function uploadLocalStorage() {
-    const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
-    state.uiState.thumbnails = lastUiProp;
-  }
-
-  // TODO Пагинатор
+  // TODO Кнопки пагинации
   function displayPaginationBtn(pageNumber) {
     const paginatorPage = document.createElement('li');
     paginatorPage.classList.add('pagination__item');
@@ -179,8 +173,14 @@ async function app() {
     paginatorPage.addEventListener('click', () => {
       state.view.currentPage = pageNumber;
       cardList.innerHTML = null;
-      renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
-      const currentActivePage = document.querySelector('li.pagination__item--active');
+      renderThumbnailsUi(
+        state.uiState.thumbnails,
+        state.view.rowsOnPage,
+        state.view.currentPage,
+      );
+      const currentActivePage = document.querySelector(
+        'li.pagination__item--active',
+      );
       currentActivePage.classList.remove('pagination__item--active');
       paginatorPage.classList.add('pagination__item--active');
     });
@@ -188,10 +188,11 @@ async function app() {
     return paginatorPage;
   }
 
+  // TODO пагинатор
   function displayPagination() {
     const cards = state.uiState.thumbnails;
     const rows = state.view.rowsOnPage;
-    const paginationEl = document.querySelector('.pagination');
+    // const paginationEl = document.querySelector('.pagination');
 
     const pagesCount = Math.ceil(cards.length / rows);
     const paginatorList = document.createElement('ul');
@@ -204,88 +205,145 @@ async function app() {
     paginationEl.append(paginatorList);
   }
 
-  // TODO Генерация дерева
-  function elementGenerator(categoryName) {
-    const ulEl = document.createElement('ul');
-    ulEl.classList.add('tree__coll');
-    const images = state.cards;
+  // TODO Рендер дерева
+  function renderTree() {
+    function elementGenerator(categoryName) {
+      const ulEl = document.createElement('ul');
+      ulEl.classList.add('tree__coll');
+      const images = state.cards;
 
-    images.filter(({ category }) => category === categoryName).forEach(({ image }) => {
-      const cardLi = document.createElement('li');
-      cardLi.classList.add('card__item');
-      cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
-      cardLi.addEventListener('click', (e) => {
-        if (!e.target.classList.contains('maximized')) {
-          e.target.classList.add('maximized');
-        } else if (e.target.classList.contains('maximized')) {
-          e.target.classList.remove('maximized');
-        }
-      });
-      ulEl.prepend(cardLi);
-    });
-    return ulEl;
-  }
-
-  function treeGenerator(categories) {
-    const ulContainer = document.querySelector('.treeline');
-    const rootTitleEl = document.createElement('li');
-    rootTitleEl.textContent = 'Categories';
-    rootTitleEl.classList.add('tree__title');
-    rootTitleEl.classList.add('handleLi');
-    const rootListEl = document.createElement('ul');
-    rootListEl.classList.add('tree__list');
-
-    ulContainer.prepend(rootTitleEl);
-    rootTitleEl.append(rootListEl);
-
-    categories.forEach((cat) => {
-      const liContainer = document.createElement('li');
-      // const dropDiv = document.createElement('div');
-      
-      // dropDiv.classList.add('drop');
-      // dropDiv.textContent = '+';
-      // dropDiv.addEventListener('click', () => {
-        //   dropDiv.textContent = (dropDiv.textContent === '+') ? '-' : '+';
-        //   dropDiv.className = (dropDiv.className === 'drop') ? 'drop close' : 'drop';
-        // });
-        
-      liContainer.classList.add('handleLi');
-      liContainer.textContent = cat;
-      // liContainer.prepend(dropDiv);
-      liContainer.append(elementGenerator(cat));
-      rootListEl.append(liContainer);
-    });
-  }
-
-  function treeModernisation() {
-    const treelineEl = document.querySelector('.treeline');
-    for (const li of treelineEl.querySelectorAll('.handleLi')) {
-      const span = document.createElement('span');
-      span.classList.add('show');
-      li.prepend(span);
-      span.append(span.nextSibling);
+      images
+        .filter(({ category }) => category === categoryName)
+        .forEach(({ image }) => {
+          const cardLi = document.createElement('li');
+          cardLi.classList.add('card__item');
+          cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
+          cardLi.addEventListener('click', (e) => {
+            if (!e.target.classList.contains('maximized')) {
+              e.target.classList.add('maximized');
+            } else if (e.target.classList.contains('maximized')) {
+              e.target.classList.remove('maximized');
+            }
+          });
+          ulEl.prepend(cardLi);
+        });
+      return ulEl;
     }
 
-    treelineEl.addEventListener('click', (e) => {
-      if (e.target.tagName !== 'SPAN') {
+    function treeGenerator(categories) {
+      const rootTitleEl = document.createElement('li');
+      rootTitleEl.textContent = 'Categories';
+      rootTitleEl.classList.add('tree__title');
+      rootTitleEl.classList.add('handleLi');
+      const rootListEl = document.createElement('ul');
+      rootListEl.classList.add('tree__list');
+
+      ulContainer.prepend(rootTitleEl);
+      rootTitleEl.append(rootListEl);
+
+      categories.forEach((cat) => {
+        const liContainer = document.createElement('li');
+        liContainer.classList.add('handleLi');
+        liContainer.textContent = cat;
+        liContainer.append(elementGenerator(cat));
+        rootListEl.append(liContainer);
+      });
+    }
+
+    // TODO Модальное окно
+    function treeModernisation() {
+      const treelineEl = document.querySelector('.treeline');
+      for (const li of treelineEl.querySelectorAll('.handleLi')) {
+        const span = document.createElement('span');
+        span.classList.add('show');
+        li.prepend(span);
+        span.append(span.nextSibling);
+      }
+
+      treelineEl.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'SPAN') {
+          return null;
+        }
+        const childrenContainer = e.target.parentNode.querySelector('ul');
+        childrenContainer.hidden = !childrenContainer.hidden;
+        if (childrenContainer.hidden) {
+          e.target.classList.add('hide');
+          e.target.classList.remove('show');
+        } else {
+          e.target.classList.add('show');
+          e.target.classList.remove('hide');
+        }
         return null;
-      }
+      });
+    }
 
-      const childrenContainer = e.target.parentNode.querySelector('ul');
-      // if (!childrenContainer) {
-      //   return null;
-      // }
+    treeGenerator(state.categories);
+    treeModernisation();
+  }
 
-      childrenContainer.hidden = !childrenContainer.hidden;
-      if (childrenContainer.hidden) {
-        e.target.classList.add('hide');
-        e.target.classList.remove('show');
-      } else {
-        e.target.classList.add('show');
-        e.target.classList.remove('hide');
-      }
+  // TODO Сортировка карточек
+  function cardsFiltration() {
+    sortElems.forEach((elem) => elem
+      .addEventListener('change', (event) => {
+        const sortType = event.target.value;
+        state.filter = sortType;
+        state.uiState.thumbnails = state.uiState.thumbnails.sort(
+          sortByField(state.filter),
+        );
+        cardList.innerHTML = null;
+        renderThumbnailsUi(
+          state.uiState.thumbnails,
+          state.view.rowsOnPage,
+          state.view.currentPage,
+        );
+      }));
+  }
+
+  // TODO смена главного вида
+  function render(view) {
+    if (view === 'cards') {
+      // setUiState();
+      // containerEl.innerHTML = null;
+      cardList.innerHTML = null;
+      ulContainer.innerHTML = null;
+      renderThumbnailsUi(
+        state.uiState.thumbnails,
+        state.view.rowsOnPage,
+        state.view.currentPage,
+      );
+      setRefreshBtn();
+      uploadLocalStorage();
+      cardsFiltration();
+      displayPagination();
+    } else if (view === 'tree') {
+      // setUiState();
+      // containerEl.innerHTML = null;
+      cardList.innerHTML = null;
+      ulContainer.innerHTML = null;
+      uploadLocalStorage();
+      renderTree();
+    }
+  }
+
+  function changeView() {
+    switcherEl.addEventListener('change', (e) => {
+      const currentView = e.target.value;
+      const buttons = document.querySelectorAll('.switcher__item');
+      buttons.forEach((elem) => {
+        elem.classList.remove('active');
+      });
+      e.target.parentNode.parentNode.classList.add('active');
+      state.uiState.currentView = currentView;
+      // containerEl.innerHTML = null;
+      paginationEl.innerHTML = null;
+      render(state.uiState.currentView);
     });
   }
+
+  // ! Инициализация приложения
+  setUiState();
+  changeView();
+  render(state.uiState.currentView);
 }
 
 app();
