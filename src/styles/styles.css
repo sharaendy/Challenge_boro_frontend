@@ -2,7 +2,8 @@ html {
   font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-html, body {
+html,
+body {
   height: 100%;
 }
 
@@ -23,12 +24,15 @@ label {
   overflow: hidden;
   max-width: 1200px;
   margin: 2.5% auto;
-
 }
 
 .header {
-  background: rgb(238,174,202);
-  background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: rgb(238, 174, 202);
+  background: radial-gradient(
+    circle,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   height: 90px;
   display: flex;
   align-items: center;
@@ -37,7 +41,7 @@ label {
   position: sticky;
   top: 0px;
   z-index: 10;
-  width: 100%; 
+  width: 100%;
   border-bottom: 1px solid grey;
   box-shadow: 2px 5px 10px grey;
 }
@@ -47,8 +51,12 @@ label {
 }
 
 .footer {
-  background: rgb(238,174,202);
-  background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+  background: rgb(238, 174, 202);
+  background: linear-gradient(
+    90deg,
+    rgba(238, 174, 202, 1) 0%,
+    rgba(148, 187, 233, 1) 100%
+  );
   min-height: 40px;
   max-height: 60px;
   border-top: 2px solid grey;
@@ -58,7 +66,7 @@ label {
   position: sticky;
   bottom: 0px;
   left: 0px;
-  width: 100%; 
+  width: 100%;
   margin-top: 10px;
 }
 
@@ -87,7 +95,7 @@ label {
   object-fit: cover;
   height: 177px;
   /* width: 244px; */
-  background-image: url("https://www.freepik.com/free-photos-vectors/blue-merle-australian-shepherd");
+  background-image: url('https://www.freepik.com/free-photos-vectors/blue-merle-australian-shepherd');
   border-radius: 5px;
 }
 
@@ -100,16 +108,16 @@ label {
   border-radius: 5px;
   font-weight: bold;
   border: solid 1px grey;
-} 
+}
 
 .card-btn:hover {
   background-color: #d66b6b;
 }
 
 .card-info {
-display: flex;
-/* height: 50px; */
-margin: 10px;
+  display: flex;
+  /* height: 50px; */
+  margin: 10px;
 }
 
 /* .control {
@@ -136,10 +144,9 @@ margin: 10px;
   text-align: center;
 }
 
-label input[name=display] {
+label input[name='display'] {
   display: none;
 }
-
 
 .switcher__group {
   font-size: 16px;
@@ -159,7 +166,7 @@ label input[name=display] {
 }
 
 .active {
-background-color: greenyellow;
+  background-color: greenyellow;
 }
 
 .mg__left {
@@ -170,7 +177,7 @@ background-color: greenyellow;
   border: 2px solid black;
   border-radius: 20px;
   min-width: 200px;
-  height: 70px;  
+  height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -199,7 +206,7 @@ background-color: greenyellow;
 }
 
 .refresh-btn {
-  background-image: url("/img/refresh.svg");
+  background-image: url('/img/refresh.svg');
   background-repeat: no-repeat;
   background-size: cover;
   width: 60px;
@@ -211,8 +218,12 @@ background-color: greenyellow;
 }
 
 @keyframes spin {
-  from {transform:rotate(0deg);}
-  to {transform:rotate(360deg);}
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .refresh-btn:hover {
@@ -229,13 +240,9 @@ background-color: greenyellow;
   align-items: center;
 }
 
-.filter__title {  
+.filter__title {
   margin-right: 20px;
 }
-
-
-
-
 
 .dropdown {
   position: relative;
@@ -247,25 +254,25 @@ background-color: greenyellow;
 }
 
 .dropdown__menu::after {
- content: "";
- position: absolute;
- display: block;
- width: 0px;
- height: 0px;
- left: 95px;
- top: -28px;
- border: 15px solid transparent;
- border-bottom-color: #b96cbe;
+  content: '';
+  position: absolute;
+  display: block;
+  width: 0px;
+  height: 0px;
+  left: 95px;
+  top: -28px;
+  border: 15px solid transparent;
+  border-bottom-color: #b96cbe;
 }
 
 .dropdown__menu::before {
- content: "";
- position: absolute;
- display: block;
- height: 30px;
- right: 0px;
- left: 0px;
- top: -30px;
+  content: '';
+  position: absolute;
+  display: block;
+  height: 30px;
+  right: 0px;
+  left: 0px;
+  top: -30px;
 }
 
 .dropdown__menu {
@@ -314,7 +321,6 @@ background-color: greenyellow;
   width: 42px;
   height: 42px;
   transition: width 0.2s, height 0.2s;
-  
 }
 
 .pagination__item--active {
@@ -359,4 +365,69 @@ background-color: greenyellow;
 
 .loaded .preloader {
   display: none;
+}
+
+.tree__title {
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.tree__list {
+  margin-left: 50px;
+  margin-top: 10px;
+}
+
+.card__item {
+  width: 75px;
+  height: 75px;
+  margin: 3px;
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid grey;
+  border-radius: 5px;
+  box-shadow: 1px 1px 4px #b3b3b3;
+}
+
+.tree__coll {
+  max-width: 1000px;
+  /* display: flex; */
+  /* flex-wrap: wrap; */
+  margin-top: 5px;
+  margin-left: 50px;
+}
+
+.treeline span:hover {
+  font-weight: bold;
+}
+
+.treeline span {
+  cursor: pointer;
+}
+
+.treeline span {
+  font-size: 14px;
+}
+
+.hide::before {
+  content: '';
+  width: 20px;
+  display: inline-block;
+  height: 20px;
+  margin-right: 5px;
+  background-image: url('/img/plus.svg');
+  vertical-align: middle;
+  background-repeat: no-repeat;
+
+}
+
+.show::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  display: inline-block;
+  background-image: url('/img/minus.svg');
+  vertical-align: middle;
+  background-repeat: no-repeat;
 }

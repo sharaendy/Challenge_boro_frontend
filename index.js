@@ -3,15 +3,17 @@ import uniqueId from 'lodash/uniqueId.js';
 async function app() {
   const state = {
     cards: [],
+    categories: [],
+
     uiState: {
       thumbnails: [],
       tree: [],
     },
+
     view: {
       currentPage: 1,
       rowsOnPage: 100,
     },
-    filter: null,
   };
 
   await fetch('http://contest.elecard.ru/frontend_data/catalog.json')
@@ -29,10 +31,14 @@ async function app() {
       const uiElemThumbnail = { ...item, id: uniqueId(), isVisible: true };
       return uiElemThumbnail;
     });
-    state.uiState.tree = state.cards.map((item) => {
-      const uiElemTree = { ...item, id: uniqueId() };
-      return uiElemTree;
+
+    const uniqueCategories = [];
+    state.cards.forEach(({ category }) => {
+      if (!uniqueCategories.includes(category)) {
+        uniqueCategories.push(category);
+      }
     });
+    state.categories = uniqueCategories.sort();
   }
 
   function changeVisibility(eventId) {
@@ -121,7 +127,9 @@ async function app() {
 
   setUiState();
   uploadLocalStorage();
-  renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+  // renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+  treeGenerator(state.categories);
+  treeModernisation();
   displayPagination();
 
   function resetView() {
@@ -195,5 +203,83 @@ async function app() {
     }
     paginationEl.append(paginatorList);
   }
+
+  // TODO Генерация дерева
+  function elementGenerator(categoryName) {
+    const ulEl = document.createElement('ul');
+    ulEl.classList.add('tree__coll');
+    const images = state.cards;
+
+    images.filter(({ category }) => category === categoryName).forEach(({ image }) => {
+      const cardLi = document.createElement('li');
+      cardLi.classList.add('card__item');
+      cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
+      ulEl.prepend(cardLi);
+    });
+    return ulEl;
+  }
+
+  function treeGenerator(categories) {
+    const ulContainer = document.querySelector('.treeline');
+    const rootTitleEl = document.createElement('li');
+    rootTitleEl.textContent = 'Categories';
+    rootTitleEl.classList.add('tree__title');
+    rootTitleEl.classList.add('handleLi');
+    const rootListEl = document.createElement('ul');
+    rootListEl.classList.add('tree__list');
+
+    ulContainer.prepend(rootTitleEl);
+    rootTitleEl.append(rootListEl);
+
+    categories.forEach((cat) => {
+      const liContainer = document.createElement('li');
+      // const dropDiv = document.createElement('div');
+      
+      // dropDiv.classList.add('drop');
+      // dropDiv.textContent = '+';
+      // dropDiv.addEventListener('click', () => {
+        //   dropDiv.textContent = (dropDiv.textContent === '+') ? '-' : '+';
+        //   dropDiv.className = (dropDiv.className === 'drop') ? 'drop close' : 'drop';
+        // });
+        
+      liContainer.classList.add('handleLi');
+      liContainer.textContent = cat;
+      // liContainer.prepend(dropDiv);
+      liContainer.append(elementGenerator(cat));
+      rootListEl.append(liContainer);
+    });
+  }
+
+  function treeModernisation() {
+    const treelineEl = document.querySelector('.treeline');
+    for (const li of treelineEl.querySelectorAll('.handleLi')) {
+      const span = document.createElement('span');
+      span.classList.add('show');
+      li.prepend(span);
+      span.append(span.nextSibling);
+    };
+
+    treelineEl.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'SPAN') {
+        return null;
+      };
+
+      const childrenContainer = e.target.parentNode.querySelector('ul');
+      // if (!childrenContainer) {
+      //   return null;
+      // }
+
+      childrenContainer.hidden = !childrenContainer.hidden;
+      if (childrenContainer.hidden) {
+        e.target.classList.add('hide');
+        e.target.classList.remove('show');
+      } else {
+        e.target.classList.add('show');
+        e.target.classList.remove('hide');
+      }
+
+    });
+  }
 }
+
 app();
