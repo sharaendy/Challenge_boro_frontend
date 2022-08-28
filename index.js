@@ -34,7 +34,6 @@ async function app() {
   // TODO Инициализация
   const cardList = document.querySelector('.cards-wrapper');
   const ulContainer = document.querySelector('.treeline');
-  // const containerEl = document.querySelector('.container');
   const switcherEl = document.querySelector('#switcher');
   const sortElems = document.querySelectorAll('input[data-type]');
   const paginationEl = document.querySelector('.pagination');
@@ -56,7 +55,8 @@ async function app() {
         uniqueCategories.push(category);
       }
     });
-    state.categories = uniqueCategories.sort();
+    // state.categories = uniqueCategories.sort();
+    state.categories = uniqueCategories;
   }
 
   function changeVisibility(eventId) {
@@ -302,8 +302,6 @@ async function app() {
   // TODO смена главного вида
   function render(view) {
     if (view === 'cards') {
-      // setUiState();
-      // containerEl.innerHTML = null;
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
       renderThumbnailsUi(
@@ -316,8 +314,6 @@ async function app() {
       cardsFiltration();
       displayPagination();
     } else if (view === 'tree') {
-      // setUiState();
-      // containerEl.innerHTML = null;
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
       uploadLocalStorage();
@@ -334,7 +330,6 @@ async function app() {
       });
       e.target.parentNode.parentNode.classList.add('active');
       state.uiState.currentView = currentView;
-      // containerEl.innerHTML = null;
       paginationEl.innerHTML = null;
       render(state.uiState.currentView);
     });
