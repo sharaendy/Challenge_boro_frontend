@@ -1,7 +1,7 @@
 import uniqueId from 'lodash/uniqueId.js';
-import createNode from './src/modules/createNode.js';
-import sortByField from './src/modules/sortByField';
-import appendElement from './src/modules/appendElement.js';
+import createNode from './modules/createNode.js';
+import sortByField from './modules/sortByField';
+import appendElement from './modules/appendElement.js';
 
 async function app() {
   const state = {
