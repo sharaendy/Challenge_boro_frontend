@@ -55,8 +55,7 @@ async function app() {
         uniqueCategories.push(category);
       }
     });
-    // state.categories = uniqueCategories.sort();
-    state.categories = uniqueCategories;
+    state.categories = uniqueCategories.sort();
   }
 
   function changeVisibility(eventId) {
