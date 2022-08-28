@@ -2,8 +2,9 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
+import cats from '../assets/data.js';
 
-async function app() {
+function app() {
   const state = {
     cards: [],
     categories: [],
@@ -21,15 +22,21 @@ async function app() {
     filter: null,
   };
 
-  await fetch('http://contest.elecard.ru/frontend_data/catalog.json', { mode: 'no-cors' })
-    .then((res) => res.json())
-    .then((json) => {
-      state.cards = json;
-    })
-    .catch((error) => {
-      console.warn(error);
-      alert('Error receiving data from the server');
-    });
+  // fetch response
+
+  // await fetch('http://contest.elecard.ru/frontend_data/catalog.json', {
+  //   mode: 'no-cors',
+  // })
+  //   .then((res) => res.json())
+  //   .then((json) => {
+  //     state.cards = json;
+  //   })
+  //   .catch((error) => {
+  //     console.warn(error);
+  //     alert('Error receiving data from the server');
+  //   });
+
+  state.cards = cats;
 
   // TODO Инициализация
   const cardList = document.querySelector('.cards-wrapper');
