@@ -21,7 +21,7 @@ async function app() {
     filter: null,
   };
 
-  await fetch('https://contest.elecard.ru/frontend_data/catalog.json', { mode: 'no-cors' })
+  await fetch('http://contest.elecard.ru/frontend_data/catalog.json', { mode: 'no-cors' })
     .then((res) => res.json())
     .then((json) => {
       state.cards = json;
