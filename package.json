@@ -23,11 +23,11 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jquery": "^1.5.1",
     "parcel": "^2.7.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "stable": "^0.1.8"
   },
   "dependencies": {
     "jquery": "^3.6.1",
-    "lodash": "^4.17.21",
-    "stable": "^0.1.8"
+    "lodash": "^4.17.21"
   }
 }
