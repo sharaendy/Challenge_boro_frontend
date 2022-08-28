@@ -127,7 +127,7 @@ async function app() {
 
   setUiState();
   uploadLocalStorage();
-  // renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
+  renderThumbnailsUi(state.uiState.thumbnails, state.view.rowsOnPage, state.view.currentPage);
   treeGenerator(state.categories);
   treeModernisation();
   displayPagination();
@@ -214,6 +214,13 @@ async function app() {
       const cardLi = document.createElement('li');
       cardLi.classList.add('card__item');
       cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
+      cardLi.addEventListener('click', (e) => {
+        if (!e.target.classList.contains('maximized')) {
+          e.target.classList.add('maximized');
+        } else if (e.target.classList.contains('maximized')) {
+          e.target.classList.remove('maximized');
+        }
+      });
       ulEl.prepend(cardLi);
     });
     return ulEl;
@@ -257,12 +264,12 @@ async function app() {
       span.classList.add('show');
       li.prepend(span);
       span.append(span.nextSibling);
-    };
+    }
 
     treelineEl.addEventListener('click', (e) => {
       if (e.target.tagName !== 'SPAN') {
         return null;
-      };
+      }
 
       const childrenContainer = e.target.parentNode.querySelector('ul');
       // if (!childrenContainer) {
@@ -277,7 +284,6 @@ async function app() {
         e.target.classList.add('show');
         e.target.classList.remove('hide');
       }
-
     });
   }
 }

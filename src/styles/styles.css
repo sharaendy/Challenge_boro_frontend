@@ -376,6 +376,10 @@ label input[name='display'] {
   margin-top: 10px;
 }
 
+/* .treeline {
+  position: relative;
+} */
+
 .card__item {
   width: 75px;
   height: 75px;
@@ -386,13 +390,40 @@ label input[name='display'] {
   border: 1px solid grey;
   border-radius: 5px;
   box-shadow: 1px 1px 4px #b3b3b3;
+  cursor: pointer;
+  transition: border 0.2s;
+}
+
+.card__item.maximized {
+  position: fixed;
+  left: -5px;
+  top: -5px;
+  height: 100%;
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+  z-index: 100;
+  background-size: cover;
+}
+
+.card__item.maximized:hover {
+  content: '';
+  border: none;
+}
+
+.card__item:hover {
+  content: '';
+  border: 3px solid #ff5757;
+  transition: border 0.2s;
 }
 
 .tree__coll {
   max-width: 1000px;
   margin-top: 5px;
   margin-left: 50px;
+  /* position: relative; */
 }
+
+
 
 .treeline span:hover {
   font-weight: bold;
@@ -457,3 +488,40 @@ label input[name='display'] {
   background-repeat: no-repeat;
   transition: background-image, 0.2s;
 }
+
+/* .modal-overlay {
+  position: fixed;
+	left: 0;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease-in-out;
+}
+
+.modal {
+	background-color: #fff;
+	width: 300px;
+	height: 300px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	display: none;
+}
+
+.modal-overlay--visible {
+	opacity: 1;
+	visibility: visible;
+	transition: all 0.3s ease-in-out;
+}
+
+.modal--visible {
+	display: block;
+} */
