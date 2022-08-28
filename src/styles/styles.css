@@ -37,7 +37,7 @@ label {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex: 1 2 1;
+  /* flex: 1 2 1; */
   position: sticky;
   top: 0px;
   z-index: 10;
