@@ -1,0 +1,25 @@
+.refresh {
+  min-width: 70px;
+  margin-left: 5%;
+  margin-right: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.refresh-btn {
+  background-image: url('../../../img/refresh.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  display: block;
+  position: relative;
+  border-radius: 50%;
+}
+
+.refresh-btn:hover {
+  animation: spin 2s linear 0s infinite;
+  transform: rotate(360deg);
+}

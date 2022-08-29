@@ -1,0 +1,49 @@
+.handleLi::before {
+  content: '';
+  position: absolute;
+  border-left: 2px solid grey;
+  height: 100%;
+  top: -10px;
+  left: -20px;
+}
+
+.handleLi::after {
+  content: '';
+  border-bottom: 2px solid grey;
+  position: absolute;
+  left: -19px;
+  top: 19px;
+  width: 19px;
+}
+
+.handleLi:last-child::before {
+  height: 31px;
+}
+
+.hide::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  margin-right: 5px;
+  background-image: url('../../../img/plus.svg');
+  border-radius: 50%;
+  vertical-align: text-bottom;;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: background-image, 0.2s;
+
+}
+
+.show::before {
+  content: '';
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  display: inline-block;
+  background-image: url('../../../img/minus.svg');
+  vertical-align: text-bottom;;
+  background-repeat: no-repeat;
+  transition: background-image, 0.2s;
+}

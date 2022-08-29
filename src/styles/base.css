@@ -1,0 +1,16 @@
+html {
+  font-family: Verdana, Arial, Helvetica, sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+label {
+  cursor: pointer;
+}
+
+label input[name='display'] {
+  display: none;
+}

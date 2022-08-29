@@ -1,0 +1,6 @@
+.wrapper {
+  background-color: #f4f4f4;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}

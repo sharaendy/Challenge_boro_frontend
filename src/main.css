@@ -1,0 +1,20 @@
+@import url('./styles/normalize.css');
+@import url('./styles/base.css');
+
+
+@import url('./styles/blocks/animation.css');
+@import url('./styles/blocks/wrapper.css');
+@import url('./styles/blocks/container.css');
+@import url('./styles/blocks/header.css');
+@import url('./styles/blocks/main-content.css');
+@import url('./styles/blocks/footer.css');
+@import url('./styles/blocks/cards.css');
+@import url('./styles/blocks/switcher.css');
+@import url('./styles/blocks/filter.css');
+@import url('./styles/blocks/refresh.css');
+@import url('./styles/blocks/dropdown.css');
+@import url('./styles/blocks/pagination.css');
+@import url('./styles/blocks/preloader.css');
+@import url('./styles/blocks/tree.css');
+@import url('./styles/blocks/treeline.css');
+@import url('./styles/blocks/handleLi.css');

@@ -1,0 +1,13 @@
+.treeline span:hover {
+  font-weight: bold;
+}
+
+.treeline span {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.treeline li {
+  position: relative;
+  padding-top: 10px;
+}

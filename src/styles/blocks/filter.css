@@ -1,0 +1,31 @@
+.filter {
+  border: 2px solid black;
+  border-radius: 20px;
+  min-width: 200px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
+.filter__title {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.filter__item {
+  margin-top: 2px;
+  margin-bottom: 5px;
+}
+
+.filter__panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filter__title {
+  margin-right: 20px;
+}
