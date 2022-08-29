@@ -1,6 +1,6 @@
 
 
-[![pages-build-deployment](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment) [![Maintainability](https://api.codeclimate.com/v1/badges/1d88d727ba96e12ab094/maintainability)](https://codeclimate.com/github/sharaendy/challenge_boro_frontend/maintainability)
+[![pages-build-deployment](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment) 
 
 ## Elecard challenge Boro Frontend
 
@@ -9,6 +9,10 @@
 ## Demo
 
 http://high-caption.surge.sh
+
+### Technical Requirements 
+
+http://contest.elecard.ru/frontend/task
 
 ## Installation
 
@@ -36,7 +40,7 @@ http://high-caption.surge.sh
 
 - lodash v4.17.21 [npm](https://www.npmjs.com/package/lodash)
 
-
+#### 
 
 ------
 
