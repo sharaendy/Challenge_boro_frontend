@@ -14,41 +14,29 @@ http://languid-aunt.surge.sh/
 
 - **Clone repository**
 
-```bash
-	git clone git@github.com:sharaendy/challenge_boro_frontend.git
-```
+`git clone git@github.com:sharaendy/challenge_boro_frontend.git`
 
 - **Parcel first**
 
-```bash
-	npm install parcel
-```
+`npm install parcel`
 
 - **Establish dependencies**
 
-```bash
-	npm ci
-```
+`npm ci`
 
 - **Build**
 
-```bash
-	npm start	
-```
+`npm start`	
 
 - **Go to**
 
-```html
-	http://localhost:1234
-```
+http://localhost:1234
 
 
 
 ### Used plugin
 
 - lodash v4.17.21 [npm](https://www.npmjs.com/package/lodash)
-
-
 
 
 
