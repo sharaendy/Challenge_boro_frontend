@@ -2,6 +2,7 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
+import changeVisibility from './modules/changeVisibility.js';
 import treeModernisation from './modules/treeModernisation.js';
 
 async function app() {
@@ -60,15 +61,6 @@ async function app() {
     state.categories = uniqueCategories.sort();
   }
 
-  function changeVisibility(eventId) {
-    state.uiState.thumbnails.forEach((item) => {
-      const uiItem = item;
-      if (eventId === item.id) {
-        uiItem.isVisible = false;
-      }
-    });
-  }
-
   function renderThumbnailsUi(cards, rowsOnPage, currentPage) {
     const currentPageMod = currentPage - 1;
     const startSegment = rowsOnPage * currentPageMod;
@@ -95,7 +87,7 @@ async function app() {
         buttonEl.textContent = 'X';
         buttonEl.setAttribute('id', id);
         listEl.addEventListener('click', (e) => {
-          changeVisibility(e.target.id);
+          changeVisibility(e.target.id, state.uiState.thumbnails);
           cardList.innerHTML = null;
           renderThumbnailsUi(
             state.uiState.thumbnails,
@@ -277,13 +269,13 @@ async function app() {
     if (view === 'cards') {
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
+      uploadLocalStorage();
       renderThumbnailsUi(
         state.uiState.thumbnails,
         state.view.rowsOnPage,
         state.view.currentPage,
       );
       setRefreshBtn();
-      uploadLocalStorage();
       cardsFiltration();
       displayPagination();
     } else if (view === 'tree') {
