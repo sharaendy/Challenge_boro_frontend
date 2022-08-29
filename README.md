@@ -4,33 +4,31 @@
 
 ## Elecard challenge Boro Frontend
 
-*Note: Make sure your browser accepts mixed content, becouse this app was loaded over HTTPS, but requested an insecure resource 'http://contest.elecard.ru/frontend_data/catalog.json' with HTTP. Anyway, you can download the application and run it locally with full functionality.*
+*Note: Make sure your browser accepts mixed content, becouse this app was loaded over HTTPS, but requested an insecure resource 'http://contest.elecard.ru/frontend_data/catalog.json' with HTTP. Some functions may not be available! Anyway, you can download the application and run it locally with full functionality.*
 
-# Demo
+## Demo
 
-http://languid-aunt.surge.sh/
+http://high-caption.surge.sh
 
-# Installation
+## Installation
 
-- **Clone repository**
+**1) Clone repository**
 
 `git clone git@github.com:sharaendy/challenge_boro_frontend.git`
 
-- **Parcel first**
+**2) Parcel first**
 
 `npm install parcel`
 
-- **Establish dependencies**
+**3) Establish dependencies**
 
 `npm ci`
 
-- **Build**
+**4) Build**
 
 `npm start`	
 
-- **Go to**
-
-http://localhost:1234
+**5) Finally! Go to ** http://localhost:1234
 
 
 
@@ -47,3 +45,4 @@ http://localhost:1234
 ​	Sharaevskiy Andrey (sharaendy)
 
 [	aash7133@gmail.com](mailto:aash7133@gmail.com)
+
