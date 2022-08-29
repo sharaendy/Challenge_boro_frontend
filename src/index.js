@@ -43,7 +43,9 @@ async function app() {
   // ! Local Storage
   function uploadLocalStorage() {
     const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
-    state.uiState.thumbnails = lastUiProp;
+    if (lastUiProp) {
+      state.uiState.thumbnails = lastUiProp;
+    }
   }
 
   function setUiState() {
