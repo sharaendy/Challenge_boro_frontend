@@ -2,6 +2,7 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
+import treeModernisation from './modules/treeModernisation.js';
 
 async function app() {
   const state = {
@@ -31,13 +32,14 @@ async function app() {
       alert('Error receiving data from the server');
     });
 
-  // TODO Инициализация
+  // ! App initialization
   const cardList = document.querySelector('.cards-wrapper');
   const ulContainer = document.querySelector('.treeline');
   const switcherEl = document.querySelector('#switcher');
   const sortElems = document.querySelectorAll('input[data-type]');
   const paginationEl = document.querySelector('.pagination');
 
+  // ! Local Storage
   function uploadLocalStorage() {
     const lastUiProp = JSON.parse(localStorage.getItem('lastUi'));
     state.uiState.thumbnails = lastUiProp;
@@ -159,7 +161,7 @@ async function app() {
     refreshBtnEl.addEventListener('click', resetView);
   }
 
-  // TODO Кнопки пагинации
+  // ! Pagination buttons display
   function displayPaginationBtn(pageNumber) {
     const paginatorPage = document.createElement('li');
     paginatorPage.classList.add('pagination__item');
@@ -187,11 +189,10 @@ async function app() {
     return paginatorPage;
   }
 
-  // TODO пагинатор
+  // ! Paginator generation
   function displayPagination() {
     const cards = state.uiState.thumbnails;
     const rows = state.view.rowsOnPage;
-    // const paginationEl = document.querySelector('.pagination');
 
     const pagesCount = Math.ceil(cards.length / rows);
     const paginatorList = document.createElement('ul');
@@ -204,7 +205,7 @@ async function app() {
     paginationEl.append(paginatorList);
   }
 
-  // TODO Рендер дерева
+  // ! Tree render
   function renderTree() {
     function elementGenerator(categoryName) {
       const ulEl = document.createElement('ul');
@@ -249,38 +250,11 @@ async function app() {
       });
     }
 
-    // TODO Модальное окно
-    function treeModernisation() {
-      const treelineEl = document.querySelector('.treeline');
-      for (const li of treelineEl.querySelectorAll('.handleLi')) {
-        const span = document.createElement('span');
-        span.classList.add('show');
-        li.prepend(span);
-        span.append(span.nextSibling);
-      }
-
-      treelineEl.addEventListener('click', (e) => {
-        if (e.target.tagName !== 'SPAN') {
-          return null;
-        }
-        const childrenContainer = e.target.parentNode.querySelector('ul');
-        childrenContainer.hidden = !childrenContainer.hidden;
-        if (childrenContainer.hidden) {
-          e.target.classList.add('hide');
-          e.target.classList.remove('show');
-        } else {
-          e.target.classList.add('show');
-          e.target.classList.remove('hide');
-        }
-        return null;
-      });
-    }
-
     treeGenerator(state.categories);
     treeModernisation();
   }
 
-  // TODO Сортировка карточек
+  // ! filtering modul logic
   function cardsFiltration() {
     sortElems.forEach((elem) => elem
       .addEventListener('change', (event) => {
@@ -298,7 +272,7 @@ async function app() {
       }));
   }
 
-  // TODO смена главного вида
+  // ! Change main view (window)
   function render(view) {
     if (view === 'cards') {
       cardList.innerHTML = null;
@@ -334,7 +308,6 @@ async function app() {
     });
   }
 
-  // ! Инициализация приложения
   setUiState();
   changeView();
   render(state.uiState.currentView);
