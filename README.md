@@ -4,7 +4,7 @@
 
 ## Elecard challenge Boro Frontend
 
-*Note: Make sure your browser accepts mixed content, becouse this app was loaded over HTTPS, but requested an insecure resource 'http://contest.elecard.ru/frontend_data/catalog.json' with HTTP. Some functions may not be available! Anyway, you can download the application and run it locally with full functionality.*
+*Note: Make sure your browser accepts mixed content, becouse this app was loaded over HTTPS, but requested an insecure resource 'http://contest.elecard.ru/frontend_data/catalog.json' with HTTP. Some functions may not be available! Anyway, you can download the application and run it locally with full functionality. Please try the demo link first*. 
 
 ## Demo
 
@@ -40,7 +40,7 @@ http://contest.elecard.ru/frontend/task
 
 - lodash v4.17.21 [npm](https://www.npmjs.com/package/lodash)
 
-#### 
+
 
 ------
 
