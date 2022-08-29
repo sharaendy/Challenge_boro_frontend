@@ -10,7 +10,7 @@
 
 http://high-caption.surge.sh
 
-### Technical Requirements 
+### Technical Assignment
 
 http://contest.elecard.ru/frontend/task
 
@@ -39,7 +39,7 @@ http://contest.elecard.ru/frontend/task
 ### Used plugin
 
 - lodash v4.17.21 [npm](https://www.npmjs.com/package/lodash)
-- eslint v8.22.0 (*Airbnb rules*) [npm(https://www.npmjs.com/package/eslint)
+- eslint v8.22.0 (*Airbnb rules*) [npm](https://www.npmjs.com/package/eslint)
 
 
 
