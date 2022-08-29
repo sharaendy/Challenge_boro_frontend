@@ -4,8 +4,9 @@
   "description": "Challenge Boro 2021.02 frontend",
   "type": "module",
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html --no-minify"    
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --public-url ./",
+    "deploy": "npm run build && git add . && git commit -a -m 'latest build' && git push origin master"
   },
   "repository": {
     "type": "git",
@@ -22,11 +23,11 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jquery": "^1.5.1",
-    "parcel": "^2.7.0",
     "prettier": "^2.7.1",
     "stable": "^0.1.8"
   },
   "dependencies": {
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "parcel": "^2.7.0"
   }
 }
