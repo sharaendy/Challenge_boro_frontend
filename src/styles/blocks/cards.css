@@ -26,15 +26,19 @@
 }
 
 .card-container {
-  display: flex; 
-  justify-content: center;
-  flex-wrap: wrap;
+  /* display: flex;  */
+  /* justify-content: center; */
+  /* flex-wrap: wrap; */
 /*   align-items: center; */
-  margin: 5px;
+  margin: 10px;
 }
 
 .card-container li {
   margin-bottom: 2px;
+}
+
+.card-container li:last-child {
+  margin-bottom: 0;
 }
 
 .card-info {

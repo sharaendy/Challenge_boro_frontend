@@ -14,6 +14,10 @@ async function app() {
     uiState: {
       thumbnails: [],
       currentView: 'cards',
+      filter: {
+        type: null,
+        isVisible: true,
+      },
     },
 
     view: {
@@ -40,6 +44,7 @@ async function app() {
   const switcherEl = document.querySelector('#switcher');
   const sortElems = document.querySelectorAll('input[data-type]');
   const paginationEl = document.querySelector('.pagination');
+  const filterEl = document.querySelector('.filter')
 
   // ! Local Storage
   function uploadLocalStorage() {
@@ -69,6 +74,8 @@ async function app() {
     const startSegment = rowsOnPage * currentPageMod;
     const endSegment = startSegment + rowsOnPage;
     const paginatedData = cards.slice(startSegment, endSegment);
+
+    filterEl.style = `visibility: ${state.uiState.filter.isVisible}`;
 
     paginatedData
       .filter(({ isVisible }) => isVisible)
@@ -207,9 +214,10 @@ async function app() {
     function elementGenerator(categoryName) {
       const ulEl = document.createElement('ul');
       ulEl.classList.add('tree__coll');
-      const images = state.cards;
+      const images = state.uiState.thumbnails;
 
       images
+        .filter(({ isVisible }) => isVisible)
         .filter(({ category }) => category === categoryName)
         .forEach(({ image }) => {
           const cardLi = document.createElement('li');
@@ -247,6 +255,7 @@ async function app() {
       });
     }
 
+    filterEl.style = `visibility: ${state.uiState.filter.isVisible}`;
     treeGenerator(state.categories);
     treeModernisation();
   }
@@ -256,9 +265,9 @@ async function app() {
     sortElems.forEach((elem) => elem
       .addEventListener('change', (event) => {
         const sortType = event.target.value;
-        state.filter = sortType;
+        state.uiState.filter.type = sortType;
         state.uiState.thumbnails = state.uiState.thumbnails.sort(
-          sortByField(state.filter),
+          sortByField(state.uiState.filter.type),
         );
         cardList.innerHTML = null;
         renderThumbnailsUi(
@@ -272,6 +281,8 @@ async function app() {
   // ! Change main view (window)
   function render(view) {
     if (view === 'cards') {
+      // filterEl.style = 'visibility: visible';
+      state.uiState.filter.isVisible = 'visible';
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
       uploadLocalStorage();
@@ -284,6 +295,8 @@ async function app() {
       cardsFiltration();
       displayPagination();
     } else if (view === 'tree') {
+      // filterEl.style = 'visibility: hidden';
+      state.uiState.filter.isVisible = 'hidden';
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
       uploadLocalStorage();
