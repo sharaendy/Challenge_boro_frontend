@@ -9,5 +9,16 @@
 
 .treeline li {
   position: relative;
+  /* padding-top: 10px; */
+}
+
+.treeline .card__data li {
+  position: relative;
+  font-size: 12px;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+li .handleLi {
   padding-top: 10px;
 }

@@ -2,7 +2,8 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
-import contentGenerator from './modules/contentGenerator.js';
+import cardsInfoGenerator from './modules/cardsInfoGenerator.js';
+import treeInfoGenerator from './modules/treeInfoGenerator.js';
 import changeVisibility from './modules/changeVisibility.js';
 import treeModernisation from './modules/treeModernisation.js';
 
@@ -44,7 +45,7 @@ async function app() {
   const switcherEl = document.querySelector('#switcher');
   const sortElems = document.querySelectorAll('input[data-type]');
   const paginationEl = document.querySelector('.pagination');
-  const filterEl = document.querySelector('.filter')
+  const filterEl = document.querySelector('.filter');
 
   // ! Local Storage
   function uploadLocalStorage() {
@@ -95,7 +96,7 @@ async function app() {
         imageEl.src = imagePath;
         cardInfoEl.classList.add('card-container');
         buttonEl.classList.add('card-btn');
-        cardInfoEl.append(contentGenerator(image, category, filesize, timestamp));
+        cardInfoEl.append(cardsInfoGenerator(category, filesize, timestamp));
         buttonEl.textContent = 'X';
         buttonEl.setAttribute('id', id);
         listEl.addEventListener('click', (e) => {
@@ -219,17 +220,26 @@ async function app() {
       images
         .filter(({ isVisible }) => isVisible)
         .filter(({ category }) => category === categoryName)
-        .forEach(({ image }) => {
+        .forEach(({ image, filesize, timestamp }) => {
           const cardLi = document.createElement('li');
+          const cardPicEl = document.createElement('div');
+          const cardTitleEl = document.createElement('div');
+
           cardLi.classList.add('card__item');
-          cardLi.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
-          cardLi.addEventListener('click', (e) => {
+          cardPicEl.classList.add('card__pic');
+          cardTitleEl.classList.add('card__data');
+
+          cardTitleEl.append(treeInfoGenerator(filesize, timestamp));
+          cardPicEl.style.backgroundImage = `url(http://contest.elecard.ru/frontend_data/${image})`;
+          cardPicEl.addEventListener('click', (e) => {
             if (!e.target.classList.contains('maximized')) {
               e.target.classList.add('maximized');
             } else if (e.target.classList.contains('maximized')) {
               e.target.classList.remove('maximized');
             }
           });
+          cardLi.prepend(cardPicEl);
+          cardLi.append(cardTitleEl);
           ulEl.prepend(cardLi);
         });
       return ulEl;
