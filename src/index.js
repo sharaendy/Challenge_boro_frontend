@@ -2,6 +2,7 @@ import uniqueId from 'lodash/uniqueId.js';
 import createNode from './modules/createNode.js';
 import sortByField from './modules/sortByField';
 import appendElement from './modules/appendElement.js';
+import contentGenerator from './modules/contentGenerator.js';
 import changeVisibility from './modules/changeVisibility.js';
 import treeModernisation from './modules/treeModernisation.js';
 
@@ -72,7 +73,9 @@ async function app() {
     paginatedData
       .filter(({ isVisible }) => isVisible)
       .map((card) => {
-        const { image, category, id } = card;
+        const {
+          image, category, id, filesize, timestamp,
+        } = card;
 
         const listEl = createNode('li');
         const cardInfoEl = createNode('div');
@@ -83,9 +86,9 @@ async function app() {
         listEl.classList.add('card');
         imageEl.classList.add('card-img');
         imageEl.src = imagePath;
-        cardInfoEl.classList.add('card-info');
+        cardInfoEl.classList.add('card-container');
         buttonEl.classList.add('card-btn');
-        cardInfoEl.textContent = 'Yep, just some simple content ecapsulated in this card.';
+        cardInfoEl.append(contentGenerator(image, category, filesize, timestamp));
         buttonEl.textContent = 'X';
         buttonEl.setAttribute('id', id);
         listEl.addEventListener('click', (e) => {
