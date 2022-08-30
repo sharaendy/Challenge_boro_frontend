@@ -20,7 +20,7 @@ http://contest.elecard.ru/frontend/task
 
 `git clone git@github.com:sharaendy/challenge_boro_frontend.git`
 
-**2) Parcel first**
+**2) Parcel first** *(if needed)*
 
 `npm install parcel`
 
@@ -40,7 +40,7 @@ http://contest.elecard.ru/frontend/task
 ### Used plugin
 
 - lodash v4.17.21 [npm](https://www.npmjs.com/package/lodash)
-- eslint v8.22.0 (*Airbnb rules*) [npm](https://www.npmjs.com/package/eslint)
+- eslint v8.22.0 (Airbnb rules) [npm](https://www.npmjs.com/package/eslint)
 
 
 
@@ -49,6 +49,5 @@ http://contest.elecard.ru/frontend/task
 ##### Authored by
 
 ​	Sharaevskiy Andrey (sharaendy)
-
 [	aash7133@gmail.com](mailto:aash7133@gmail.com)
 
