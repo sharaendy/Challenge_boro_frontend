@@ -77,7 +77,6 @@ async function app() {
     const paginatedData = cards.slice(startSegment, endSegment);
 
     filterEl.style = `visibility: ${state.uiState.filter.isVisible}`;
-
     paginatedData
       .filter(({ isVisible }) => isVisible)
       .map((card) => {
@@ -274,23 +273,22 @@ async function app() {
 
   // ! filtering modul logic
   function cardsFiltration() {
-    sortElems.forEach((elem) => elem
-      .addEventListener('change', (event) => {
-        const sortType = event.target.value;
-        state.uiState.filter.type = sortType;
-        state.uiState.thumbnails = state.uiState.thumbnails.sort(
-          sortByField(state.uiState.filter.type),
-        );
-        cardList.innerHTML = null;
-        renderThumbnailsUi(
-          state.uiState.thumbnails,
-          state.view.rowsOnPage,
-          state.view.currentPage,
-        );
-      }));
+    sortElems.forEach((elem) => elem.addEventListener('change', (event) => {
+      const sortType = event.target.value;
+      state.uiState.filter.type = sortType;
+      state.uiState.thumbnails = state.uiState.thumbnails
+        .filter(({ isVisible }) => isVisible)
+        .sort(sortByField(state.uiState.filter.type));
+      cardList.innerHTML = null;
+      renderThumbnailsUi(
+        state.uiState.thumbnails,
+        state.view.rowsOnPage,
+        state.view.currentPage,
+      );
+    }));
   }
 
-  // ! Change main view (window)
+  // ! Render main view
   function render(view) {
     if (view === 'cards') {
       state.uiState.filter.isVisible = 'visible';
@@ -314,6 +312,7 @@ async function app() {
     }
   }
 
+  // ! Change main view (window)
   function changeView() {
     switcherEl.addEventListener('change', (e) => {
       const currentView = e.target.value;
