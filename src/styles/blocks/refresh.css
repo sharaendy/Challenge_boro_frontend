@@ -17,6 +17,7 @@
   display: block;
   position: relative;
   border-radius: 50%;
+  margin-top: 5px;
 }
 
 .refresh-btn:hover {

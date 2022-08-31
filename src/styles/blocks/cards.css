@@ -71,6 +71,7 @@
   grid-template-columns: repeat(auto-fill, 270px);
   gap: 40px 30px;
   justify-content: center;
+  padding-bottom: 12px;
 }
 
 /* .card__item {
