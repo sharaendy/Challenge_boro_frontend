@@ -100,10 +100,10 @@ async function app() {
         buttonEl.textContent = 'X';
         buttonEl.setAttribute('id', id);
         listEl.addEventListener('click', (e) => {
-          changeVisibility(e.target.id, state.uiState.thumbnails);
+          state.uiState.thumbnails = changeVisibility(e.target.id, state.uiState.thumbnails);
           cardList.innerHTML = null;
           renderThumbnailsUi(
-            state.uiState.thumbnails,
+            state.uiState.thumbnails.filter(({ isVisible }) => isVisible),
             state.view.rowsOnPage,
             state.view.currentPage,
           );
@@ -180,7 +180,8 @@ async function app() {
       state.view.currentPage = pageNumber;
       cardList.innerHTML = null;
       renderThumbnailsUi(
-        state.uiState.thumbnails,
+        // state.uiState.thumbnails,
+        state.uiState.thumbnails.filter(({ isVisible }) => isVisible),
         state.view.rowsOnPage,
         state.view.currentPage,
       );
@@ -196,7 +197,8 @@ async function app() {
 
   // ! Paginator generation
   function displayPagination() {
-    const cards = state.uiState.thumbnails;
+    paginationEl.innerHTML = null;
+    const cards = state.uiState.thumbnails.filter(({ isVisible }) => isVisible);
     const rows = state.view.rowsOnPage;
 
     const pagesCount = Math.ceil(cards.length / rows);
@@ -291,7 +293,6 @@ async function app() {
   // ! Change main view (window)
   function render(view) {
     if (view === 'cards') {
-      // filterEl.style = 'visibility: visible';
       state.uiState.filter.isVisible = 'visible';
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
@@ -305,7 +306,6 @@ async function app() {
       cardsFiltration();
       displayPagination();
     } else if (view === 'tree') {
-      // filterEl.style = 'visibility: hidden';
       state.uiState.filter.isVisible = 'hidden';
       cardList.innerHTML = null;
       ulContainer.innerHTML = null;
