@@ -2,7 +2,7 @@
 
 [![pages-build-deployment](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment/badge.svg?branch=main)](https://github.com/sharaendy/challenge_boro_frontend/actions/workflows/pages/pages-build-deployment) 
 
-## Elecard challenge Boro Frontend
+## Challenge Boro Frontend
 
 **Note: Make sure your browser accepts mixed content, becouse this app was loaded over HTTPS, but requested an insecure resource 'http://contest.elecard.ru/frontend_data/catalog.json' with HTTP. Some functions may not be available! Anyway, you can download the application and run it locally with full functionality. Please try the demo link first*. 
 
